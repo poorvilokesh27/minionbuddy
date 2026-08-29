@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minion Companion</title>
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>🍌 MINION COMPANION</h1>
+      <p>talk to us, we make memes and noise about it</p>
+    </header>
+
+    <div class="stage" data-state="idle" id="stage">
+      <span class="stage-label" id="stageLabel">waiting...</span>
+      <svg class="minion" viewBox="0 0 100 140"><g>
+        <rect class="overalls" x="20" y="90" width="60" height="45" rx="10"/>
+        <rect class="body" x="18" y="15" width="64" height="95" rx="32"/>
+        <circle class="eye-white" cx="50" cy="45" r="16"/>
+        <circle class="pupil" cx="50" cy="45" r="6"/>
+        <path class="mouth" d="M35 70 Q50 82 65 70"/>
+      </g></svg>
+      <svg class="minion" viewBox="0 0 100 140" style="width:70px;"><g>
+        <rect class="overalls" x="18" y="88" width="64" height="47" rx="10"/>
+        <rect class="body" x="14" y="10" width="72" height="100" rx="34"/>
+        <circle class="eye-white" cx="38" cy="42" r="14"/>
+        <circle class="eye-white" cx="64" cy="42" r="14"/>
+        <circle class="pupil" cx="38" cy="42" r="5"/>
+        <circle class="pupil" cx="64" cy="42" r="5"/>
+        <path class="mouth" d="M32 68 Q50 80 68 68"/>
+      </g></svg>
+      <svg class="minion" viewBox="0 0 100 140"><g>
+        <rect class="overalls" x="20" y="92" width="60" height="43" rx="10"/>
+        <rect class="body" x="20" y="20" width="60" height="88" rx="30"/>
+        <circle class="eye-white" cx="50" cy="48" r="14"/>
+        <circle class="pupil" cx="50" cy="48" r="5"/>
+        <path class="mouth" d="M37 68 Q50 76 63 68"/>
+      </g></svg>
+    </div>
+
+    <div class="chat" id="chat">
+      <div class="msg bot">Bello! Type something and papoy — we react. 🍌
+        <span class="mood-tag">Kevin • Stuart • Bob are watching your keystrokes</span>
+      </div>
+    </div>
+
+    <div class="toggle-row">
+      <label><input type="checkbox" id="voiceToggle" checked> Minion voice</label>
+      <label><input type="checkbox" id="memeToggle" checked> Auto-meme</label>
+    </div>
+
+    <div class="input-bar">
+      <input id="textInput" type="text" placeholder="Tell the minions something..." autocomplete="off">
+      <button id="sendBtn">Send</button>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
