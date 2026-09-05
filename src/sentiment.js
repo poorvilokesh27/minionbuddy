@@ -1,22 +1,77 @@
-// Lightweight local sentiment analysis — no external API needed.
-const POSITIVE = ["good","great","happy","love","awesome","excited","win","amazing","fun","best","nice","cool","banana","yay","joy","glad","success","proud","fantastic","superb"];
-const NEGATIVE = ["sad","bad","angry","hate","tired","fail","worried","stressed","upset","cry","annoyed","terrible","awful","depressed","frustrated","lonely","exam","worry","pain","hurt"];
-const QUESTION_WORDS = ["what","why","how","when","where","who","can","should","is","are","do","does"];
+export function detectMood(text) {
+  const message = text.toLowerCase();
 
-export function analyzeSentiment(text) {
-  const words = text.toLowerCase().replace(/[^a-z\s]/g, "").split(/\s+/).filter(Boolean);
-  let score = 0;
-  words.forEach((w) => {
-    if (POSITIVE.includes(w)) score += 1;
-    if (NEGATIVE.includes(w)) score -= 1;
-  });
+  const moods = {
+    happy: [
+      "happy",
+      "excited",
+      "great",
+      "awesome",
+      "amazing",
+      "good",
+      "yay",
+      "love",
+      "fun",
+      "wonderful",
+      "best",
+      "haha",
+      "lol",
+      "😂",
+      "❤️",
+      "😍"
+    ],
 
-  const isQuestion = text.trim().endsWith("?") || QUESTION_WORDS.includes(words[0]);
+    sad: [
+      "sad",
+      "cry",
+      "crying",
+      "upset",
+      "lonely",
+      "hurt",
+      "bad",
+      "depressed",
+      "miss",
+      "lost",
+      "tired",
+      "😢",
+      "😭",
+      "💔"
+    ],
 
-  let mood = "neutral";
-  if (score > 0) mood = "happy";
-  else if (score < 0) mood = "sad";
-  if (words.some((w) => ["angry", "hate", "furious", "mad"].includes(w))) mood = "angry";
+    angry: [
+      "angry",
+      "mad",
+      "hate",
+      "annoyed",
+      "furious",
+      "irritated",
+      "stupid",
+      "worst",
+      "😡",
+      "🤬"
+    ],
 
-  return { mood, isQuestion, score };
+    surprised: [
+      "wow",
+      "omg",
+      "really",
+      "what",
+      "surprise",
+      "surprised",
+      "unbelievable",
+      "seriously",
+      "😮",
+      "😲"
+    ]
+  };
+
+  for (const mood in moods) {
+    for (const word of moods[mood]) {
+      if (message.includes(word)) {
+        return mood;
+      }
+    }
+  }
+
+  return "neutral";
 }

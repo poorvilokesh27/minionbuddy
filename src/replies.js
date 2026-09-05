@@ -1,46 +1,52 @@
-import { analyzeSentiment } from "./sentiment.js";
-
-const MINIONESE_TAGS = ["Poopaye!", "Bello!", "Tank yu!", "Para tú!", "Underwear!", "Baboi!", "Tulaliloo!"];
-
-function randomTag() {
-  return MINIONESE_TAGS[Math.floor(Math.random() * MINIONESE_TAGS.length)];
-}
-
-const REPLY_BANK = {
+const replies = {
   happy: [
-    "Hehe that's making us do a happy wiggle right now! {tag}",
-    "Yesss! Banana energy detected. Keep going! {tag}",
-    "We are literally jumping over here. Love this for you. {tag}",
+    "Yessss! MinionBuddy happy happy! Banana celebration time! 🍌",
+    "Woohoo! Your happiness make MinionBuddy go BANANAAAA! 🍌😂",
+    "Hehehe! That sounds super awesome! Keep smiling, sweetie! 😄",
+    "Belloooo! Happy vibes detected! MinionBuddy approve! 💛",
+    "Yayyy! Today is officially a banana-tastic day! 🍌"
   ],
+
   sad: [
-    "Aww, no no. Bring the banana closer, we sit with you. {tag}",
-    "That sounds heavy. Stuart says take a breath, we're not going anywhere. {tag}",
-    "Okay okay, group hug protocol activated. {tag}",
+    "Awwww... MinionBuddy here with you. Everything doesn't have to be perfect right now. 💛",
+    "Oh nooo... tiny Minion hug energy coming your way. You got this! 💛",
+    "It's okay to have a difficult day. MinionBuddy says take a little break and breathe. 🌻",
+    "Hmm... sad face detected. Sending you maximum banana-powered encouragement! 🍌💛",
+    "MinionBuddy is listening. One small step at a time, okay? 💛"
   ],
+
   angry: [
-    "WHOA. Okay. Kevin says punch a pillow, not us please. {tag}",
-    "Big feelings detected! Let it out, we'll just duck. {tag}",
-    "That's frustrating fr. Want to vent more or distract you? {tag}",
+    "Uh ohhh! Angry banana detected! 🍌😤 Let's take a tiny pause!",
+    "Whoa whoa! MinionBuddy says calm down before the bananas start flying! 😂",
+    "Okay okay... deep breath! We don't want MinionBuddy causing chaos! 😤🍌",
+    "Angry mode activated! But MinionBuddy vote for calm mode! 💛",
+    "Bello! Let's slow everything down for a moment. Banana peace! 🍌"
   ],
+
+  surprised: [
+    "WHAAAAT?! MinionBuddy also surprised! 😲🍌",
+    "Ooooooo! That sounds crazy interesting! 😮",
+    "BANANAAAA! Wait... what just happened?! 😂",
+    "MinionBuddy eyes officially became HUGE! 👀😲",
+    "No wayyyy! Tell MinionBuddy more! 😮🍌"
+  ],
+
   neutral: [
-    "Noted! Tell us more, we're curious little yellow guys. {tag}",
-    "Okay okay, going on the list of things we now know about you. {tag}",
-    "Interesting! Bob wants details though. {tag}",
-  ],
-  question: [
-    "Ooooh good question. Honestly? We're just minions, but here's our guess: think it through step by step and trust yourself. {tag}",
-    "Hmm we scratched our heads on that one. What does your gut say? {tag}",
-    "Big question! We'd say: try it and see what happens. {tag}",
-  ],
+    "Bello! MinionBuddy is listening! 👋",
+    "Hmmmm... interesting! Tell MinionBuddy more! 🍌",
+    "Hehehe! Okay okay, MinionBuddy understands! 😄",
+    "Bello sweetie! What's happening? 🍌",
+    "MinionBuddy ready! Let's talk! 💛",
+    "Ooooh! Tell me everything! 👀"
+  ]
 };
 
-export function generateReply(text) {
-  const { mood, isQuestion } = analyzeSentiment(text);
-  const bankKey = isQuestion ? "question" : mood;
-  const bank = REPLY_BANK[bankKey] || REPLY_BANK.neutral;
-  const template = bank[Math.floor(Math.random() * bank.length)];
-  return {
-    text: template.replace("{tag}", randomTag()),
-    mood: isQuestion ? "neutral" : mood,
-  };
+export function generateReply(text, mood) {
+  const moodReplies = replies[mood] || replies.neutral;
+
+  const randomIndex = Math.floor(
+    Math.random() * moodReplies.length
+  );
+
+  return moodReplies[randomIndex];
 }

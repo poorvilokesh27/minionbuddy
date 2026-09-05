@@ -1,62 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Minion Companion</title>
-  <link rel="stylesheet" href="/src/style.css">
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>MinionBuddy</title>
+
+  <link rel="stylesheet" href="/src/style.css" />
 </head>
+
 <body>
-  <div class="app">
-    <header>
-      <h1>🍌 MINION COMPANION</h1>
-      <p>talk to us, we make memes and noise about it</p>
-    </header>
 
-    <div class="stage" data-state="idle" id="stage">
-      <span class="stage-label" id="stageLabel">waiting...</span>
-      <svg class="minion" viewBox="0 0 100 140"><g>
-        <rect class="overalls" x="20" y="90" width="60" height="45" rx="10"/>
-        <rect class="body" x="18" y="15" width="64" height="95" rx="32"/>
-        <circle class="eye-white" cx="50" cy="45" r="16"/>
-        <circle class="pupil" cx="50" cy="45" r="6"/>
-        <path class="mouth" d="M35 70 Q50 82 65 70"/>
-      </g></svg>
-      <svg class="minion" viewBox="0 0 100 140" style="width:70px;"><g>
-        <rect class="overalls" x="18" y="88" width="64" height="47" rx="10"/>
-        <rect class="body" x="14" y="10" width="72" height="100" rx="34"/>
-        <circle class="eye-white" cx="38" cy="42" r="14"/>
-        <circle class="eye-white" cx="64" cy="42" r="14"/>
-        <circle class="pupil" cx="38" cy="42" r="5"/>
-        <circle class="pupil" cx="64" cy="42" r="5"/>
-        <path class="mouth" d="M32 68 Q50 80 68 68"/>
-      </g></svg>
-      <svg class="minion" viewBox="0 0 100 140"><g>
-        <rect class="overalls" x="20" y="92" width="60" height="43" rx="10"/>
-        <rect class="body" x="20" y="20" width="60" height="88" rx="30"/>
-        <circle class="eye-white" cx="50" cy="48" r="14"/>
-        <circle class="pupil" cx="50" cy="48" r="5"/>
-        <path class="mouth" d="M37 68 Q50 76 63 68"/>
-      </g></svg>
-    </div>
+  <!-- ================= INTRO ================= -->
 
-    <div class="chat" id="chat">
-      <div class="msg bot">Bello! Type something and papoy — we react. 🍌
-        <span class="mood-tag">Kevin • Stuart • Bob are watching your keystrokes</span>
-      </div>
-    </div>
+  <div id="introScreen" class="intro-screen">
 
-    <div class="toggle-row">
-      <label><input type="checkbox" id="voiceToggle" checked> Minion voice</label>
-      <label><input type="checkbox" id="memeToggle" checked> Auto-meme</label>
-    </div>
+    <video
+      id="introVideo"
+      class="intro-video"
+      autoplay
+      muted
+      playsinline
+    >
+      <source
+        src="/assets/minion/intro/MINIONBUDDY.mp4"
+        type="video/mp4"
+      />
 
-    <div class="input-bar">
-      <input id="textInput" type="text" placeholder="Tell the minions something..." autocomplete="off">
-      <button id="sendBtn">Send</button>
-    </div>
+      Your browser does not support video.
+    </video>
+
+    <button id="skipIntro" class="skip-button">
+      Skip intro
+    </button>
+
   </div>
 
+
+  <!-- ================= USER SETUP ================= -->
+
+  <div id="setupScreen" class="setup-screen hidden">
+
+    <div class="setup-card">
+
+      <div class="setup-emoji">🍌</div>
+
+      <h1>Welcome to MinionBuddy!</h1>
+
+      <p>
+        Before we start, tell your little buddy about you.
+      </p>
+
+      <label for="sweetieName">
+        What's your sweetie name?
+      </label>
+
+      <input
+        id="sweetieName"
+        type="text"
+        maxlength="30"
+        placeholder="Enter your name"
+      />
+
+      <label for="userAge">
+        How old are you?
+      </label>
+
+      <input
+        id="userAge"
+        type="number"
+        min="5"
+        max="100"
+        placeholder="Your age"
+      />
+
+      <button id="startButton">
+        Let's Go! 🍌
+      </button>
+
+      <p id="setupError" class="error-message"></p>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================= MAIN APP ================= -->
+
+  <main id="app" class="app hidden">
+
+    <header class="header">
+
+      <div class="logo">
+        🍌 MINIONBUDDY
+      </div>
+
+      <div id="welcomeText" class="welcome-text">
+        Your silly little AI buddy
+      </div>
+
+    </header>
+
+
+    <!-- CHARACTER AREA -->
+
+    <section class="character-section">
+
+      <div id="moodLabel" class="mood-label">
+        MOOD: JUST VIBING
+      </div>
+
+      <div class="character-box">
+
+        <img
+          id="characterImage"
+          src="/assets/minion/idle.jpg"
+          alt="MinionBuddy character"
+        />
+
+        <img
+          id="thinkingAnimation"
+          class="thinking-animation hidden"
+          src="/assets/minion/animations/waiting.gif"
+          alt="MinionBuddy thinking"
+        />
+
+      </div>
+
+      <div id="statusText" class="status">
+        Ready for you 🍌
+      </div>
+
+    </section>
+
+
+    <!-- CHAT -->
+
+    <section id="chat" class="chat">
+
+      <div class="message bot-message">
+
+        <strong>MinionBuddy:</strong>
+
+        <span>
+          Bello! Tell me what's happening! 🍌
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- MEME -->
+
+    <section id="memeSection" class="meme-section hidden">
+
+      <div class="meme-title">
+        😂 YOUR MOOD MEME
+      </div>
+
+      <img
+        id="memeImage"
+        class="meme-image"
+        alt="Mood meme"
+      />
+
+    </section>
+
+
+    <!-- INPUT -->
+
+    <section class="input-section">
+
+      <textarea
+        id="textInput"
+        rows="2"
+        maxlength="500"
+        placeholder="Tell MinionBuddy something..."
+      ></textarea>
+
+      <button id="sendButton">
+        SEND 🍌
+      </button>
+
+    </section>
+
+    <footer>
+      MinionBuddy • Your silly AI companion 💛
+    </footer>
+
+  </main>
+
+
   <script type="module" src="/src/main.js"></script>
+
 </body>
 </html>
