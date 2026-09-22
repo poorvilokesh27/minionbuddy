@@ -6,4 +6,5 @@ dist/
 build/
 .expo/
 .DS_Store
-*.log
+*.log*.exe
+*.exe
