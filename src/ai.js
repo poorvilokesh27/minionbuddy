@@ -16,3 +16,15 @@ export async function askMinionBuddy(message, name) {
 
   return data;
 }
+
+
+
+
+
+
+
+
+
+
+
+
